@@ -3,16 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Library = void 0;
 class Library {
     static addLivro(livro) {
-        this.allBooks.push(livro);
+        Library.allBooks.push(livro);
     }
     static removeLivro(livro) {
-        if (this.allBooks.includes(livro)) {
-            const index = this.allBooks.indexOf(livro);
-            this.allBooks.splice(index, 1);
+        if (Library.allBooks.includes(livro)) {
+            const index = Library.allBooks.indexOf(livro);
+            Library.allBooks.splice(index, 1);
         }
     }
     static buscaLivro(titulo) {
-        this.allBooks.forEach(livro => {
+        Library.allBooks.forEach(livro => {
             if (livro.titulo == titulo) {
                 return livro;
             }
@@ -20,7 +20,7 @@ class Library {
         return null;
     }
     static buscaLivroID(id) {
-        this.allBooks.forEach(livro => {
+        Library.allBooks.forEach(livro => {
             if (livro.id == id) {
                 return livro;
             }
@@ -28,14 +28,14 @@ class Library {
         return null;
     }
     static listaLivros() {
-        this.allBooks.forEach(element => {
+        Library.allBooks.forEach(element => {
             console.log(element.titulo + " ", element.autor + "\n");
         });
-        return this.allBooks;
+        return Library.allBooks;
     }
     static buscaAutor(autor) {
         const livros = [];
-        this.allBooks.forEach(livro => {
+        Library.allBooks.forEach(livro => {
             if (livro.autor == autor) {
                 livros.push(livro);
             }
@@ -44,7 +44,7 @@ class Library {
     }
     static buscaaGenero(genero) {
         const livros = [];
-        this.allBooks.forEach(livro => {
+        Library.allBooks.forEach(livro => {
             if (livro.genero == genero) {
                 livros.push(livro);
             }
@@ -52,7 +52,7 @@ class Library {
         return livros;
     }
     static buscaCPF(cpf) {
-        this.clientes.forEach(cliente => {
+        Library.clientes.forEach(cliente => {
             if (cliente.cpf == cpf) {
                 return cliente;
             }
@@ -61,7 +61,7 @@ class Library {
     }
     static buscaNome(nome) {
         const clientes_encontrados = [];
-        this.clientes.forEach(cliente => {
+        Library.clientes.forEach(cliente => {
             if (cliente.nome == nome) {
                 clientes_encontrados.push(cliente);
             }
@@ -69,24 +69,27 @@ class Library {
         return clientes_encontrados;
     }
     static removeCliente(cliente) {
-        if (this.clientes.includes(cliente)) {
-            const index = this.clientes.indexOf(cliente);
-            this.clientes.splice(index, 1);
+        if (Library.clientes.includes(cliente)) {
+            const index = Library.clientes.indexOf(cliente);
+            Library.clientes.splice(index, 1);
         }
     }
     static addCliente(cliente) {
-        if (cliente.cpf.length == 11 && (this.buscaCPF(cliente.cpf) != null)) {
-            this.clientes.push(cliente);
+        if (cliente.cpf.length == 11 && (Library.buscaCPF(cliente.cpf) != null)) {
+            Library.clientes.push(cliente);
         }
     }
     static listaClientes() {
-        this.clientes.forEach(element => {
+        Library.clientes.forEach(element => {
             console.log(element.nome + " ", element.cpf + "\n");
         });
-        return this.clientes;
+        return Library.clientes;
+    }
+    static Log() {
+        return Library.registro;
     }
 }
 exports.Library = Library;
 Library.allBooks = [];
 Library.clientes = [];
-Library.log = [];
+Library.registro = [];
