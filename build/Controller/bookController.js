@@ -13,28 +13,32 @@ exports.bookController = void 0;
 const bookModel_1 = require("../models/bookModel");
 const utils_1 = require("../services/utils");
 class bookController {
-    static insertBook(req, res) {
+    static getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let book = req.body;
-            if (!book)
-                return (0, utils_1.badRequest)(res, "Produto inválido");
-            if (!book.titulo)
-                return (0, utils_1.badRequest)(res, 'Informe o nome do livro');
-            if (!book.autor)
-                return (0, utils_1.badRequest)(res, 'Informe o autor');
-            if (!book.genero)
-                return (0, utils_1.badRequest)(res, 'Informe o genero');
-            bookModel_1.bookModel.insertBook(book);
-            return res.status(200).json(book);
+            const books = yield bookModel_1.bookModel.getAll();
+            return res.status(200).json(books);
         });
+    }
+    static insertBook(req, res) {
+        let book = req.body;
+        if (!book)
+            return (0, utils_1.badRequest)(res, "Produto inválido");
+        if (!book.titulo)
+            return (0, utils_1.badRequest)(res, 'Informe o nome do livro');
+        if (!book.autor)
+            return (0, utils_1.badRequest)(res, 'Informe o autor');
+        if (!book.genero)
+            return (0, utils_1.badRequest)(res, 'Informe o genero');
+        bookModel_1.bookModel.insertBook(book);
+        return res.status(200).json(book);
     }
     static deleteBook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const id = req.params.id;
+            const id = parseInt(req.params.id);
             if (!(0, utils_1.validateNumber)(id)) {
                 return (0, utils_1.badRequest)(res, 'id invalido');
             }
-            return;
+            return res.status(200).json({ message: { id } + 'deletado com sucesso' });
         });
     }
 }

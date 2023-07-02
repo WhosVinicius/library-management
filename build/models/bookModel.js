@@ -25,6 +25,11 @@ class Book {
 }
 exports.Book = Book;
 class bookModel {
+    static getAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Lib_1.Library.listaLivros();
+        });
+    }
     static insertBook(book) {
         return __awaiter(this, void 0, void 0, function* () {
             Lib_1.Library.addLivro(book);

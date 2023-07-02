@@ -1,10 +1,16 @@
 import { Request, Response } from 'express';
 import { Book, bookModel } from '../models/bookModel';
 import { badRequest, internalServerError, validateNumber } from '../services/utils';
+import { Library } from '../Lib';
 
 export class bookController {
 
-    public static async insertBook (req: Request, res: Response) {
+    public static async getAll (req: Request, res: Response) {
+        const books: Array<Book> = await bookModel.getAll();
+        return res.status(200).json(books);
+    }
+
+    public static insertBook (req: Request, res: Response) {
         let book = req.body;
 
         if (!book)
@@ -24,10 +30,13 @@ export class bookController {
     }
 
     public static async deleteBook (req: Request, res: Response) {
-        const id: string = req.params.id;
+        const id: number = parseInt(req.params.id);
         if (!validateNumber(id)) {
             return badRequest(res, 'id invalido')
         }
-        return;
+        return res.status(200).json({ message: { id } + 'deletado com sucesso' });
     }
+
+
+
 }

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { Cliente, clienteModel } from "../models/clienteModel";
-import { badRequest } from '../services/utils';
+import { badRequest, validateNumber } from '../services/utils';
 
 export class clienteController {
-    public static async insertUser (req: Request, res: Response) {
+    public static async insertUser (req: Request, res: Response): Promise<void> {
 
         let cliente = req.body;
 
@@ -25,5 +25,13 @@ export class clienteController {
 
         clienteModel.insertClient(cliente as Cliente);
         res.status(200).json(cliente);
+    }
+
+    public static async deleteClient (req: Request, res: Response): Promise<void> {
+        const cpf: number = parseInt(req.params.id);
+        if (!validateNumber(cpf)) {
+            return badRequest(res, 'pedido invalido')
+        }
+        res.status(200).json({ message: { cpf } + `removido com sucesso` })
     }
 }

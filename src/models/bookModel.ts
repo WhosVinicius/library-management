@@ -21,6 +21,10 @@ export class Book {
 
 export class bookModel {
 
+    public static async getAll () {
+        return Library.listaLivros();
+    }
+
     public static async insertBook (book: Book) {
         Library.addLivro(book);
         return book;

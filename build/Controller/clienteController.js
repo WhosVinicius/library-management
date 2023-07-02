@@ -35,5 +35,14 @@ class clienteController {
             res.status(200).json(cliente);
         });
     }
+    static deleteClient(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cpf = parseInt(req.params.id);
+            if (!(0, utils_1.validateNumber)(cpf)) {
+                return (0, utils_1.badRequest)(res, 'pedido invalido');
+            }
+            res.status(200).json({ message: { cpf } + `removido com sucesso` });
+        });
+    }
 }
 exports.clienteController = clienteController;

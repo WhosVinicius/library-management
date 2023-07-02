@@ -14,12 +14,12 @@ export class Emprestimo {
 		this.devolvido = false;
 	}
 
-	static criaEmprestimo (livro: Book, data: String = "11/07"): Emprestimo {
+	public static criaEmprestimo (livro: Book, data: String = "11/07"): Emprestimo {
 		const emprestimo = new Emprestimo(livro, data)
 		return emprestimo;
 	}
 
-	static realizaEmprestimo (cliente: Cliente, livro: Book, data: String) {
+	public static realizaEmprestimo (cliente: Cliente, livro: Book, data: String) {
 		const emprestimo = this.criaEmprestimo(livro, data);
 		cliente.ficha.push(emprestimo);
 
