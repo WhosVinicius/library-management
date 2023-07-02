@@ -103,7 +103,15 @@ export class Library {
         return Library.clientes;
     }
 
+    static addLog (reg: registroEmprestimo) {
+        Library.registro.push(reg);
+        return;
+    }
+
     static Log (): Array<registroEmprestimo> {
+        Library.registro.forEach(reg => {
+            console.log(reg);
+        })
         return Library.registro;
     }
 

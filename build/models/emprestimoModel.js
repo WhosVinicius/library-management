@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registroEmprestimo = void 0;
+const Lib_1 = require("../Lib");
 class registroEmprestimo {
     constructor(livro, data, cliente) {
         this.livro = livro;
@@ -20,6 +21,12 @@ class registroEmprestimo {
     }
     static getAll() {
         return __awaiter(this, void 0, void 0, function* () {
+            return Lib_1.Library.Log();
+        });
+    }
+    static insertEmprestimo(reg) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Lib_1.Library.addLog(reg);
             return;
         });
     }

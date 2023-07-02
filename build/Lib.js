@@ -85,7 +85,14 @@ class Library {
         });
         return Library.clientes;
     }
+    static addLog(reg) {
+        Library.registro.push(reg);
+        return;
+    }
     static Log() {
+        Library.registro.forEach(reg => {
+            console.log(reg);
+        });
         return Library.registro;
     }
 }

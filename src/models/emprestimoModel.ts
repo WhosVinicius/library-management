@@ -1,3 +1,4 @@
+import { Library } from "../Lib";
 import { Book } from "./bookModel";
 import { Cliente } from "./clienteModel";
 
@@ -16,7 +17,12 @@ export class registroEmprestimo {
         this.cliente = cliente;
     }
 
-    public static async getAll () {
+    public static async getAll (): Promise<registroEmprestimo[]> {
+        return Library.Log();
+    }
+
+    public static async insertEmprestimo (reg: registroEmprestimo) {
+        Library.addLog(reg);
         return;
     }
 
