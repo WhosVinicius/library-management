@@ -3,7 +3,7 @@ import { Cliente, clienteModel } from "../models/clienteModel";
 import { badRequest } from '../services/utils';
 
 export class clienteController {
-    public async insertUser (req: Request, res: Response) {
+    public static async insertUser (req: Request, res: Response) {
 
         let cliente = req.body;
 

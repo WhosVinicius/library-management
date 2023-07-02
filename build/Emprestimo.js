@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Registro_emprestimo = exports.Emprestimo = void 0;
+exports.registroEmprestimo = exports.Emprestimo = void 0;
 class Emprestimo {
     constructor(livro, data) {
         this.livro = livro;
@@ -8,17 +8,17 @@ class Emprestimo {
         this.ativo = true;
         this.devolvido = false;
     }
-    static cria_emprestimo(livro, data = "11/07") {
+    static criaEmprestimo(livro, data = "11/07") {
         const emprestimo = new Emprestimo(livro, data);
         return emprestimo;
     }
-    static realiza_emprestimo(cliente, livro, data) {
-        const emprestimo = this.cria_emprestimo(livro, data);
+    static realizaEmprestimo(cliente, livro, data) {
+        const emprestimo = this.criaEmprestimo(livro, data);
         cliente.ficha.push(emprestimo);
     }
 }
 exports.Emprestimo = Emprestimo;
-class Registro_emprestimo {
+class registroEmprestimo {
     constructor(livro, data, cliente) {
         this.livro = livro;
         this.data = data;
@@ -27,4 +27,4 @@ class Registro_emprestimo {
         this.cliente = cliente;
     }
 }
-exports.Registro_emprestimo = Registro_emprestimo;
+exports.registroEmprestimo = registroEmprestimo;

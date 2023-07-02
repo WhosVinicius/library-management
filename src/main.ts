@@ -4,6 +4,8 @@ import { Library } from './Lib';
 import { Book } from './models/bookModel';
 import { Cliente } from './models/clienteModel';
 import bodyParser from 'body-parser';
+import { clienteController } from './controller/clienteController';
+import { bookController } from './controller/bookController';
 
 
 const app = express();
@@ -20,10 +22,7 @@ app.get('/clientes', (req: Request, res: Response) => {
 
 
 app.post('/clientes', (req: Request, res: Response) => {
-  const data = req.body;
-  const cliente = new Cliente(data.nome, data.cpf, data.endereco, data.nasc);
-  Library.addCliente(cliente);
-  res.status(200).send('cliente cadastrado com sucesso');
+  clienteController.insertUser(req, res);
 })
 
 app.delete('/clientes', (req: Request, res: Response) => {
@@ -41,10 +40,7 @@ app.get('/books', (req: Request, res: Response) => {
 })
 
 app.post('/books', (req: Request, res: Response) => {
-  const data = req.body;
-  const livro: Book = new Book(data.titulo, data.autor, data.genero);
-  Library.addLivro(livro);
-  res.status(200).send('livro cadastrado com sucesso');
+  bookController.insertBook(req, res);
 })
 
 

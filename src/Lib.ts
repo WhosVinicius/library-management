@@ -28,6 +28,15 @@ export class Library {
         return null;
     }
 
+    static buscaLivroID (id: number): Book | null {
+        this.allBooks.forEach(livro => {
+            if (livro.id == id) {
+                return livro;
+            }
+        })
+        return null;
+    }
+
     static listaLivros (): Array<Book> {
         this.allBooks.forEach(element => {
             console.log(element.titulo + " ", element.autor + "\n")

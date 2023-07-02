@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { Book, bookModel } from '../models/bookModel';
-import { badRequest, internalServerError } from '../services/utils';
+import { badRequest, internalServerError, validateNumber } from '../services/utils';
 
 export class bookController {
-    public async insertBook (req: Request, res: Response) {
 
+    public static async insertBook (req: Request, res: Response) {
         let book = req.body;
 
         if (!book)
@@ -21,5 +21,13 @@ export class bookController {
 
         bookModel.insertBook(book as Book)
         return res.status(200).json(book)
+    }
+
+    public static async deleteBook (req: Request, res: Response) {
+        const id: string = req.params.id;
+        if (!validateNumber(id)) {
+            return badRequest(res, 'id invalido')
+        }
+        return;
     }
 }

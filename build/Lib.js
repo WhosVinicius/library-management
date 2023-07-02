@@ -2,48 +2,56 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Library = void 0;
 class Library {
-    static add_livro(livro) {
-        this.All_books.push(livro);
+    static addLivro(livro) {
+        this.allBooks.push(livro);
     }
-    static remove_livro(livro) {
-        if (this.All_books.includes(livro)) {
-            const index = this.All_books.indexOf(livro);
-            this.All_books.splice(index, 1);
+    static removeLivro(livro) {
+        if (this.allBooks.includes(livro)) {
+            const index = this.allBooks.indexOf(livro);
+            this.allBooks.splice(index, 1);
         }
     }
-    static busca_livro(titulo) {
-        this.All_books.forEach(livro => {
+    static buscaLivro(titulo) {
+        this.allBooks.forEach(livro => {
             if (livro.titulo == titulo) {
                 return livro;
             }
         });
         return null;
     }
-    static lista_livros() {
-        this.All_books.forEach(element => {
+    static buscaLivroID(id) {
+        this.allBooks.forEach(livro => {
+            if (livro.id == id) {
+                return livro;
+            }
+        });
+        return null;
+    }
+    static listaLivros() {
+        this.allBooks.forEach(element => {
             console.log(element.titulo + " ", element.autor + "\n");
         });
-        return this.All_books;
+        return this.allBooks;
     }
-    static busca_autor(autor) {
+    static buscaAutor(autor) {
         const livros = [];
-        this.All_books.forEach(livro => {
+        this.allBooks.forEach(livro => {
             if (livro.autor == autor) {
                 livros.push(livro);
             }
         });
         return livros;
     }
-    static busca_genero(genero) {
+    static buscaaGenero(genero) {
         const livros = [];
-        this.All_books.forEach(livro => {
+        this.allBooks.forEach(livro => {
             if (livro.genero == genero) {
                 livros.push(livro);
             }
         });
         return livros;
     }
-    static busca_cpf(cpf) {
+    static buscaCPF(cpf) {
         this.clientes.forEach(cliente => {
             if (cliente.cpf == cpf) {
                 return cliente;
@@ -51,7 +59,7 @@ class Library {
         });
         return null;
     }
-    static busca_nome(nome) {
+    static buscaNome(nome) {
         const clientes_encontrados = [];
         this.clientes.forEach(cliente => {
             if (cliente.nome == nome) {
@@ -60,18 +68,18 @@ class Library {
         });
         return clientes_encontrados;
     }
-    static remove_cliente(cliente) {
+    static removeCliente(cliente) {
         if (this.clientes.includes(cliente)) {
             const index = this.clientes.indexOf(cliente);
             this.clientes.splice(index, 1);
         }
     }
-    static add_cliente(cliente) {
-        if (cliente.cpf.length == 11 && (this.busca_cpf(cliente.cpf) != null)) {
+    static addCliente(cliente) {
+        if (cliente.cpf.length == 11 && (this.buscaCPF(cliente.cpf) != null)) {
             this.clientes.push(cliente);
         }
     }
-    static list_clients() {
+    static listaClientes() {
         this.clientes.forEach(element => {
             console.log(element.nome + " ", element.cpf + "\n");
         });
@@ -79,6 +87,6 @@ class Library {
     }
 }
 exports.Library = Library;
-Library.All_books = [];
+Library.allBooks = [];
 Library.clientes = [];
 Library.log = [];

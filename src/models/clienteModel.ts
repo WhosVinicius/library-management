@@ -30,8 +30,21 @@ class Endereço {
 }
 
 export class clienteModel {
-    public static insertClient (cliente: Cliente) {
+
+    public static async insertClient (cliente: Cliente) {
         Library.addCliente(cliente);
         return cliente;
     }
+
+    public static async getClient (cpf: string) {
+        return Library.buscaCPF(cpf);
+    }
+
+    public static async deleteCient (cpf: string) {
+        const cliente = await clienteModel.getClient(cpf);
+        if (cliente != null) {
+            Library.removeCliente(cliente);
+        }
+    }
+
 }
