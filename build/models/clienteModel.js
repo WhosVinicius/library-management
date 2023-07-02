@@ -21,7 +21,7 @@ class Cliente {
     }
 }
 exports.Cliente = Cliente;
-class Endereço {
+class endereco {
     constructor(rua, bairro, numero) {
         this.bairro = bairro;
         this.rua = rua;

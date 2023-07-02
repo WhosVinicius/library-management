@@ -75,9 +75,7 @@ class Library {
         }
     }
     static addCliente(cliente) {
-        if (cliente.cpf.length == 11 && (Library.buscaCPF(cliente.cpf) != null)) {
-            Library.clientes.push(cliente);
-        }
+        Library.clientes.push(cliente);
     }
     static listaClientes() {
         Library.clientes.forEach(element => {

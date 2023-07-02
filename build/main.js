@@ -18,7 +18,7 @@ app.get('/clientes', (req, res) => {
     res.status(200).send(clientes);
 });
 app.post('/clientes', (req, res) => {
-    clienteController_1.clienteController.insertUser(req, res);
+    clienteController_1.clienteController.insertClient(req, res);
 });
 app.delete('/clientes', (req, res) => {
     const data = req.body.cpf;

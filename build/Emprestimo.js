@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registroEmprestimo = exports.Emprestimo = void 0;
+exports.RegistroEmprestimo = exports.Emprestimo = void 0;
 class Emprestimo {
     constructor(livro, data) {
         this.livro = livro;
@@ -18,7 +18,7 @@ class Emprestimo {
     }
 }
 exports.Emprestimo = Emprestimo;
-class registroEmprestimo {
+class RegistroEmprestimo {
     constructor(livro, data, cliente) {
         this.livro = livro;
         this.data = data;
@@ -27,4 +27,4 @@ class registroEmprestimo {
         this.cliente = cliente;
     }
 }
-exports.registroEmprestimo = registroEmprestimo;
+exports.RegistroEmprestimo = RegistroEmprestimo;

@@ -1,12 +1,12 @@
 import { Book } from "./models/bookModel";
 import { Cliente } from "./models/clienteModel";
-import { registroEmprestimo } from "./Emprestimo";
+import { RegistroEmprestimo } from "./Emprestimo";
 
 
 export class Library {
-    static allBooks: Array<Book> = [];
-    static clientes: Array<Cliente> = [];
-    static registro: Array<registroEmprestimo> = [];
+    static allBooks: Book[] = [];
+    static clientes: Cliente[] = [];
+    static registro: RegistroEmprestimo[] = [];
 
     static addLivro (livro: Book): void {
         Library.allBooks.push(livro);
@@ -37,15 +37,15 @@ export class Library {
         return null;
     }
 
-    static listaLivros (): Array<Book> {
+    static listaLivros (): Book[] {
         Library.allBooks.forEach(element => {
             console.log(element.titulo + " ", element.autor + "\n")
         });
         return Library.allBooks;
     }
 
-    static buscaAutor (autor: String): Array<Book> {
-        const livros: Array<Book> = [];
+    static buscaAutor (autor: String): Book[] {
+        const livros: Book[] = [];
         Library.allBooks.forEach(livro => {
             if (livro.autor == autor) {
                 livros.push(livro);
@@ -54,8 +54,8 @@ export class Library {
         return livros;
     }
 
-    static buscaaGenero (genero: String): Array<Book> {
-        const livros: Array<Book> = [];
+    static buscaaGenero (genero: String): Book[] {
+        const livros: Book[] = [];
         Library.allBooks.forEach(livro => {
             if (livro.genero == genero) {
                 livros.push(livro);
@@ -73,8 +73,8 @@ export class Library {
         return null;
     }
 
-    static buscaNome (nome: String): Array<Cliente> {
-        const clientes_encontrados: Array<Cliente> = [];
+    static buscaNome (nome: String): Cliente[] {
+        const clientes_encontrados: Cliente[] = [];
         Library.clientes.forEach(cliente => {
             if (cliente.nome == nome) {
                 clientes_encontrados.push(cliente);
@@ -91,24 +91,23 @@ export class Library {
     }
 
     static addCliente (cliente: Cliente) {
-        if (cliente.cpf.length == 11 && (Library.buscaCPF(cliente.cpf) != null)) {
-            Library.clientes.push(cliente);
-        }
+        Library.clientes.push(cliente);
     }
 
-    static listaClientes (): Array<Cliente> {
+
+    static listaClientes (): Cliente[] {
         Library.clientes.forEach(element => {
             console.log(element.nome + " ", element.cpf + "\n")
         });
         return Library.clientes;
     }
 
-    static addLog (reg: registroEmprestimo) {
+    static addLog (reg: RegistroEmprestimo) {
         Library.registro.push(reg);
         return;
     }
 
-    static Log (): Array<registroEmprestimo> {
+    static Log (): RegistroEmprestimo[] {
         Library.registro.forEach(reg => {
             console.log(reg);
         })

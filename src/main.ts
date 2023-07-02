@@ -22,7 +22,7 @@ app.get('/clientes', (req: Request, res: Response) => {
 
 
 app.post('/clientes', (req: Request, res: Response) => {
-  clienteController.insertUser(req, res);
+  clienteController.insertClient(req, res);
 })
 
 app.delete('/clientes', (req: Request, res: Response) => {

@@ -4,11 +4,11 @@ import { Emprestimo } from "../Emprestimo";
 export class Cliente {
     nome: String;
     nascimento: String;
-    endereço: Endereço;
+    endereço: endereco;
     ficha: Array<Emprestimo>;
     cpf: String;
 
-    constructor (nome: String, data: String, endereco: Endereço, cpf: String) {
+    constructor (nome: String, data: String, endereco: endereco, cpf: String) {
         this.ficha = [];
         this.nome = nome;
         this.nascimento = data;
@@ -17,7 +17,7 @@ export class Cliente {
     }
 }
 
-class Endereço {
+class endereco {
     rua: String;
     bairro: String;
     numero: number;
@@ -32,6 +32,7 @@ class Endereço {
 export class clienteModel {
 
     public static async insertClient (cliente: Cliente) {
+
         Library.addCliente(cliente);
         return cliente;
     }

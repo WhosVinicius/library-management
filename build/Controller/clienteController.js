@@ -13,25 +13,38 @@ exports.clienteController = void 0;
 const clienteModel_1 = require("../models/clienteModel");
 const utils_1 = require("../services/utils");
 class clienteController {
-    static insertUser(req, res) {
+    static insertClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let cliente = req.body;
             if (!cliente) {
                 return (0, utils_1.badRequest)(res, 'cliente invalido');
             }
-            if (!cliente.nome) {
+            else if (!cliente.nome) {
                 return (0, utils_1.badRequest)(res, 'informe o nome');
             }
-            if (!cliente.cpf) {
+            else if (!cliente.cpf) {
                 return (0, utils_1.badRequest)(res, 'informe o cpf');
             }
-            if (!cliente.endereco) {
+            else if (!cliente.endereco) {
                 return (0, utils_1.badRequest)(res, "informe o endereço");
             }
-            if (!cliente.data) {
+            else if (!cliente.data) {
                 return (0, utils_1.badRequest)(res, "informe a data de nascimento");
             }
+            else if ((yield clienteModel_1.clienteModel.getClient(cliente.cpf)) == null) {
+                return (0, utils_1.badRequest)(res, "cliente ja cadastrado");
+            }
             clienteModel_1.clienteModel.insertClient(cliente);
+            res.status(200).json(cliente);
+        });
+    }
+    static getClient(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cpf = req.params.id;
+            if (!(0, utils_1.validateNumber)(parseInt(cpf))) {
+                return (0, utils_1.badRequest)(res, 'pedido invalido');
+            }
+            const cliente = clienteModel_1.clienteModel.getClient(cpf);
             res.status(200).json(cliente);
         });
     }

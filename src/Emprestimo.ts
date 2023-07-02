@@ -27,7 +27,7 @@ export class Emprestimo {
 
 }
 
-export class registroEmprestimo {
+export class RegistroEmprestimo {
 	livro: Book;
 	data: String;
 	ativo: Boolean;
