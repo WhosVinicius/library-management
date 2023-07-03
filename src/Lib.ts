@@ -1,6 +1,6 @@
 import { Book } from "./models/bookModel";
 import { Cliente } from "./models/clienteModel";
-import { RegistroEmprestimo } from "./Emprestimo";
+import { RegistroEmprestimo } from "./RegistroEmprestimo";
 
 
 export class Library {
