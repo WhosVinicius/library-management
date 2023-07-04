@@ -1,5 +1,5 @@
 import { Book } from "./Book";
-import { Cliente } from "./Cliente/Cliente";
+import { Cliente } from "./cliente/Cliente";
 
 export class Registro {
     livro: Book;

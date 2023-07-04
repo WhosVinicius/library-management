@@ -9,25 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.clienteModel = exports.Cliente = void 0;
+exports.clienteModel = void 0;
 const Lib_1 = require("../Lib");
-class Cliente {
-    constructor(nome, data, endereco, cpf) {
-        this.ficha = [];
-        this.nome = nome;
-        this.nascimento = data;
-        this.endereço = endereco;
-        this.cpf = cpf;
-    }
-}
-exports.Cliente = Cliente;
-class endereco {
-    constructor(rua, bairro, numero) {
-        this.bairro = bairro;
-        this.rua = rua;
-        this.numero = numero;
-    }
-}
 class clienteModel {
     static insertClient(cliente) {
         return __awaiter(this, void 0, void 0, function* () {

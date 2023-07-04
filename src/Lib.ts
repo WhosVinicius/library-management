@@ -1,4 +1,4 @@
-import { Cliente } from "./classes/Cliente/Cliente";
+import { Cliente } from "./classes/cliente/Cliente";
 import { Registro } from "./classes/Registro";
 import { Book } from "./classes/Book";
 

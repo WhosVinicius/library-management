@@ -1,5 +1,5 @@
 import { Library } from "../Lib"
-import { Cliente } from "../classes/Cliente/Cliente";
+import { Cliente } from "../classes/cliente/Cliente";
 
 export class clienteModel {
 

@@ -1,6 +1,4 @@
 import { Library } from "../Lib";
-import { Cliente } from "../classes/Cliente/Cliente";
-import { Book } from "../classes/Book";
 import { Registro } from "../classes/Registro";
 
 export class RegistroModel {

@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import { Book } from './classes/Book';
 import { clienteController } from './controller/clienteController';
 import { bookController } from './controller/bookController';
-import { Cliente } from './classes/Cliente/Cliente';
+import { Cliente } from './classes/cliente/Cliente';
 
 
 const app = express();
