@@ -1,33 +1,5 @@
 import { Library } from "../Lib"
-import { Emprestimo } from "../Emprestimo";
-
-export class Cliente {
-    nome: String;
-    nascimento: String;
-    endereço: endereco;
-    ficha: Array<Emprestimo>;
-    cpf: String;
-
-    constructor (nome: String, data: String, endereco: endereco, cpf: String) {
-        this.ficha = [];
-        this.nome = nome;
-        this.nascimento = data;
-        this.endereço = endereco;
-        this.cpf = cpf;
-    }
-}
-
-class endereco {
-    rua: String;
-    bairro: String;
-    numero: number;
-
-    constructor (rua: String, bairro: String, numero: number) {
-        this.bairro = bairro;
-        this.rua = rua;
-        this.numero = numero;
-    }
-}
+import { Cliente } from "../classes/Cliente/Cliente";
 
 export class clienteModel {
 

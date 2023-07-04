@@ -1,12 +1,11 @@
-import { Book } from "./models/bookModel";
-import { Cliente } from "./models/clienteModel";
-import { RegistroEmprestimo } from "./RegistroEmprestimo";
-
+import { Cliente } from "./classes/Cliente/Cliente";
+import { Registro } from "./classes/Registro";
+import { Book } from "./classes/Book";
 
 export class Library {
     static allBooks: Book[] = [];
     static clientes: Cliente[] = [];
-    static registro: RegistroEmprestimo[] = [];
+    static registro: Registro[] = [];
 
     static addLivro (livro: Book): void {
         Library.allBooks.push(livro);
@@ -102,12 +101,12 @@ export class Library {
         return Library.clientes;
     }
 
-    static addLog (reg: RegistroEmprestimo) {
+    static addLog (reg: Registro) {
         Library.registro.push(reg);
         return;
     }
 
-    static Log (): RegistroEmprestimo[] {
+    static Log (): Registro[] {
         Library.registro.forEach(reg => {
             console.log(reg);
         })

@@ -1,8 +1,7 @@
-import { Cliente } from "./models/clienteModel";
-import { Book } from "./models/bookModel";
+import { Book } from "./Book";
+import { Cliente } from "./Cliente/Cliente";
 
-
-export class RegistroEmprestimo {
+export class Registro {
     livro: Book;
     data: String;
     ativo: Boolean;
