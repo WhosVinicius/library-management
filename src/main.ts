@@ -1,11 +1,11 @@
 import express from 'express'
 import { Request, Response } from 'express';
 import { Library } from './Lib';
-import { Book } from './models/bookModel';
-import { Cliente } from './models/clienteModel';
 import bodyParser from 'body-parser';
+import { Book } from './classes/Book';
 import { clienteController } from './controller/clienteController';
 import { bookController } from './controller/bookController';
+import { Cliente } from './classes/Cliente/Cliente';
 
 
 const app = express();
