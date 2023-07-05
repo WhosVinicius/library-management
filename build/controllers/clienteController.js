@@ -32,7 +32,7 @@ class clienteController {
             if (!(0, utils_1.validateNumber)(parseInt(cpf))) {
                 return (0, utils_1.badRequest)(res, 'pedido invalido');
             }
-            const cliente = clienteModel_1.clienteModel.getClient(cpf);
+            const cliente = yield clienteModel_1.clienteModel.getClient(cpf);
             res.status(200).json(cliente);
         });
     }
@@ -74,12 +74,19 @@ class clienteController {
     }
     static deleteClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const cpf = parseInt(req.params.id);
-            if (!(0, utils_1.validateNumber)(cpf)) {
+            const cpf = req.query.id;
+            console.log(cpf, typeof (cpf));
+            if (!cpf || !(0, utils_1.validateNumber)(cpf)) {
                 return (0, utils_1.badRequest)(res, 'pedido invalido');
             }
-            clienteModel_1.clienteModel.deleteCient(cpf.toString());
-            res.status(200).json({ message: { cpf } + `removido com sucesso` });
+            else if ((yield clienteModel_1.clienteModel.getClient(cpf.toString().trim())) == null) {
+                return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
+            }
+            const cl = yield clienteModel_1.clienteModel.deleteCient(cpf.toString().trim());
+            console.log(cl);
+            res.status(200).json({
+                message: `${cl === null || cl === void 0 ? void 0 : cl.cpf}:${cl === null || cl === void 0 ? void 0 : cl.nome} removido com sucesso`
+            });
         });
     }
 }

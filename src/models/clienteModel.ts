@@ -20,6 +20,7 @@ export class clienteModel {
         const cliente = await clienteModel.getClient(cpf);
         if (cliente != null) {
             Library.removeCliente(cliente);
+            return cliente;
         }
     }
 

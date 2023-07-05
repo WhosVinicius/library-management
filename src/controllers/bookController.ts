@@ -7,7 +7,7 @@ import { Library } from '../Lib';
 export class bookController {
 
     public static async getAll (req: Request, res: Response) {
-        const books: Array<Book> = await bookModel.getAll();
+        const books: Book[] = await bookModel.getAll();
         try {
             return res.status(200).json(books);
         }

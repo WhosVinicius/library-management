@@ -1,11 +1,8 @@
 import express from 'express'
 import { Request, Response } from 'express';
-import { Library } from './Lib';
 import bodyParser from 'body-parser';
-import { Book } from './classes/Book';
 import { clienteController } from './controllers/clienteController';
 import { bookController } from './controllers/bookController';
-import { Cliente } from './classes/cliente/Cliente';
 
 class Server {
   private port: number;
@@ -38,6 +35,8 @@ app.post('/clientes', (req: Request, res: Response) => {
 app.delete('/clientes', (req: Request, res: Response) => {
   clienteController.deleteClient(req, res);
 })
+
+app.delete('clientes/id:')
 
 app.get('/books', (req: Request, res: Response) => {
   bookController.getAll(req, res);

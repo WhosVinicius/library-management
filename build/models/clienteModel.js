@@ -33,6 +33,7 @@ class clienteModel {
             const cliente = yield clienteModel.getClient(cpf);
             if (cliente != null) {
                 Lib_1.Library.removeCliente(cliente);
+                return cliente;
             }
         });
     }

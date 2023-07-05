@@ -57,7 +57,7 @@ class Library {
     static buscaCPF(cpf) {
         let ret = null;
         for (let i = 0; i < Library.clientes.length; i++) {
-            if (Library.clientes[i].cpf == cpf) {
+            if (Library.clientes[i].cpf.trim().toLocaleLowerCase() == cpf.trim().toLocaleLowerCase()) {
                 ret = Library.clientes[i];
                 break;
             }

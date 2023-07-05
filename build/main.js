@@ -30,6 +30,7 @@ app.post('/clientes', (req, res) => {
 app.delete('/clientes', (req, res) => {
     clienteController_1.clienteController.deleteClient(req, res);
 });
+app.delete('clientes/id:');
 app.get('/books', (req, res) => {
     bookController_1.bookController.getAll(req, res);
 });

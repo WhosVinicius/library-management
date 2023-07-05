@@ -70,7 +70,7 @@ export class Library {
     static buscaCPF (cpf: string): Cliente | null {
         let ret = null;
         for (let i: number = 0; i < Library.clientes.length; i++) {
-            if (Library.clientes[i].cpf == cpf) {
+            if (Library.clientes[i].cpf.trim().toLocaleLowerCase() == cpf.trim().toLocaleLowerCase()) {
                 ret = Library.clientes[i]
                 break;
             }

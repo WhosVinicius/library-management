@@ -22,7 +22,7 @@ export class clienteController {
         if (!validateNumber(parseInt(cpf))) {
             return badRequest(res, 'pedido invalido')
         }
-        const cliente = clienteModel.getClient(cpf);
+        const cliente = await clienteModel.getClient(cpf);
         res.status(200).json(cliente);
     }
 
@@ -61,12 +61,19 @@ export class clienteController {
         }
     }
 
-    public static async deleteClient (req: Request, res: Response): Promise<void> {
-        const cpf: number = parseInt(req.params.id);
-        if (!validateNumber(cpf)) {
-            return badRequest(res, 'pedido invalido')
+    public static async deleteClient (req: Request, res: Response) {
+        const cpf = req.query.id;
+        console.log(cpf, typeof (cpf));
+        if (!cpf || !validateNumber(cpf)) {
+            return badRequest(res, 'pedido invalido');
         }
-        clienteModel.deleteCient(cpf.toString());
-        res.status(200).json({ message: { cpf } + `removido com sucesso` })
+        else if (await clienteModel.getClient(cpf.toString().trim()) == null) {
+            return badRequest(res, 'cliente nao cadastrado');
+        }
+        const cl: Cliente | undefined = await clienteModel.deleteCient(cpf.toString().trim());
+        console.log(cl);
+        res.status(200).json({
+            message: `${ cl?.cpf }:${ cl?.nome } removido com sucesso`
+        })
     }
 }
