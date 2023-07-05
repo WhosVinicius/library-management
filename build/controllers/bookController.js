@@ -69,8 +69,10 @@ class bookController {
                     return (0, utils_1.internalServerError)(res, e);
                 }
             }
-            return res.status(200).json(book);
+            res.status(200).json(book);
         });
+    }
+    static updateBook(req, res) {
     }
     static deleteBook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

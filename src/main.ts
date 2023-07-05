@@ -28,7 +28,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get('/clientes', (req: Request, res: Response) => {
-  clienteController.getClient(req, res);
+  clienteController.getAll(req, res);
 })
 
 app.post('/clientes', (req: Request, res: Response) => {

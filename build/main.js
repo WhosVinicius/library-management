@@ -22,7 +22,7 @@ class Server {
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.get('/clientes', (req, res) => {
-    clienteController_1.clienteController.getClient(req, res);
+    clienteController_1.clienteController.getAll(req, res);
 });
 app.post('/clientes', (req, res) => {
     clienteController_1.clienteController.insertClient(req, res);

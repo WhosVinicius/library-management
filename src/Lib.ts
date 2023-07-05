@@ -18,7 +18,7 @@ export class Library {
         }
     }
 
-    static buscaLivro (titulo: String): Book | null {
+    static buscaLivro (titulo: string): Book | null {
         Library.allBooks.forEach(livro => {
             if (livro.titulo == titulo) {
                 return livro;
@@ -43,7 +43,7 @@ export class Library {
         return Library.allBooks;
     }
 
-    static buscaAutor (autor: String): Book[] {
+    static buscaAutor (autor: string): Book[] {
         const livros: Book[] = [];
         Library.allBooks.forEach(livro => {
             if (livro.autor == autor) {
@@ -53,7 +53,7 @@ export class Library {
         return livros;
     }
 
-    static buscaaGenero (genero: String): Book[] {
+    static buscaGenero (genero: string): Book[] {
         const livros: Book[] = [];
         Library.allBooks.forEach(livro => {
             if (livro.genero == genero) {
@@ -63,16 +63,22 @@ export class Library {
         return livros;
     }
 
-    static buscaCPF (cpf: String): Cliente | null {
-        Library.clientes.forEach(cliente => {
-            if (cliente.cpf == cpf) {
-                return cliente;
-            }
-        });
-        return null;
+    static addCliente (cliente: Cliente) {
+        Library.clientes.push(cliente);
     }
 
-    static buscaNome (nome: String): Cliente[] {
+    static buscaCPF (cpf: string): Cliente | null {
+        let ret = null;
+        for (let i: number = 0; i < Library.clientes.length; i++) {
+            if (Library.clientes[i].cpf == cpf) {
+                ret = Library.clientes[i]
+                break;
+            }
+        }
+        return ret;
+    }
+
+    static buscaNome (nome: string): Cliente[] {
         const clientes_encontrados: Cliente[] = [];
         Library.clientes.forEach(cliente => {
             if (cliente.nome == nome) {
@@ -89,15 +95,10 @@ export class Library {
         }
     }
 
-    static addCliente (cliente: Cliente) {
-        Library.clientes.push(cliente);
-    }
-
-
     static listaClientes (): Cliente[] {
-        Library.clientes.forEach(element => {
-            console.log(element.nome + " ", element.cpf + "\n")
-        });
+        // Library.clientes.forEach(element => {
+        //     console.log(element.nome + " ", element.cpf + "\n")
+        // });
         return Library.clientes;
     }
 

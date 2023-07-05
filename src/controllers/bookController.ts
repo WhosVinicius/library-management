@@ -63,7 +63,11 @@ export class bookController {
                 return internalServerError(res, e);
             }
         }
-        return res.status(200).json(book)
+        res.status(200).json(book)
+    }
+
+    public static updateBook (req: Request, res: Response) {
+
     }
 
     public static async deleteBook (req: Request, res: Response) {

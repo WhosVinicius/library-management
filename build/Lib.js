@@ -42,7 +42,7 @@ class Library {
         });
         return livros;
     }
-    static buscaaGenero(genero) {
+    static buscaGenero(genero) {
         const livros = [];
         Library.allBooks.forEach(livro => {
             if (livro.genero == genero) {
@@ -51,13 +51,18 @@ class Library {
         });
         return livros;
     }
+    static addCliente(cliente) {
+        Library.clientes.push(cliente);
+    }
     static buscaCPF(cpf) {
-        Library.clientes.forEach(cliente => {
-            if (cliente.cpf == cpf) {
-                return cliente;
+        let ret = null;
+        for (let i = 0; i < Library.clientes.length; i++) {
+            if (Library.clientes[i].cpf == cpf) {
+                ret = Library.clientes[i];
+                break;
             }
-        });
-        return null;
+        }
+        return ret;
     }
     static buscaNome(nome) {
         const clientes_encontrados = [];
@@ -74,13 +79,10 @@ class Library {
             Library.clientes.splice(index, 1);
         }
     }
-    static addCliente(cliente) {
-        Library.clientes.push(cliente);
-    }
     static listaClientes() {
-        Library.clientes.forEach(element => {
-            console.log(element.nome + " ", element.cpf + "\n");
-        });
+        // Library.clientes.forEach(element => {
+        //     console.log(element.nome + " ", element.cpf + "\n")
+        // });
         return Library.clientes;
     }
     static addLog(reg) {

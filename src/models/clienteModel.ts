@@ -3,7 +3,7 @@ import { Cliente } from "../classes/cliente/Cliente";
 
 export class clienteModel {
 
-    public static async getClient (cpf: string) {
+    public static async getClient (cpf: string): Promise<Cliente | null> {
         return Library.buscaCPF(cpf);
     }
 

@@ -39,26 +39,37 @@ class clienteController {
     static insertClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let cliente = req.body;
+            if ((yield clienteModel_1.clienteModel.getClient(cliente.cpf)) != null) {
+                return (0, utils_1.badRequest)(res, "cliente ja esta cadastrado");
+            }
             if (!cliente) {
                 return (0, utils_1.badRequest)(res, 'cliente invalido');
             }
-            else if (!cliente.nome) {
+            if (!cliente.nome) {
                 return (0, utils_1.badRequest)(res, 'informe o nome');
             }
-            else if (!cliente.cpf) {
+            if (!cliente.cpf) {
                 return (0, utils_1.badRequest)(res, 'informe o cpf');
             }
-            else if (!cliente.endereco) {
+            if (!cliente.endereco) {
                 return (0, utils_1.badRequest)(res, "informe o endereço");
             }
-            else if (!cliente.data) {
+            if (!cliente.data) {
                 return (0, utils_1.badRequest)(res, "informe a data de nascimento");
             }
-            else if ((yield clienteModel_1.clienteModel.getClient(cliente.cpf)) == null) {
-                return (0, utils_1.badRequest)(res, "cliente ja cadastrado");
+            try {
+                const cl = yield clienteModel_1.clienteModel.insertClient(cliente);
+                if (!cl) {
+                    return (0, utils_1.notFound)(res);
+                }
+                res.status(200).json(cliente);
+                return cl;
             }
-            clienteModel_1.clienteModel.insertClient(cliente);
-            res.status(200).json(cliente);
+            catch (e) {
+                if (e instanceof Error) {
+                    return (0, utils_1.internalServerError)(res, e);
+                }
+            }
         });
     }
     static deleteClient(req, res) {
