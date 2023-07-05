@@ -3,14 +3,18 @@ import { Cliente } from "../classes/cliente/Cliente";
 
 export class clienteModel {
 
+    public static async getClient (cpf: string) {
+        return Library.buscaCPF(cpf);
+    }
+
+    public static async getAll () {
+        return Library.listaClientes();
+    }
+    
     public static async insertClient (cliente: Cliente) {
 
         Library.addCliente(cliente);
         return cliente;
-    }
-
-    public static async getClient (cpf: string) {
-        return Library.buscaCPF(cpf);
     }
 
     public static async deleteCient (cpf: string) {
