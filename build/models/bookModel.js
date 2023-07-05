@@ -17,15 +17,22 @@ class bookModel {
             return Lib_1.Library.listaLivros();
         });
     }
+    static getBook(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Lib_1.Library.buscaLivroID(id);
+        });
+    }
     static insertBook(book) {
         return __awaiter(this, void 0, void 0, function* () {
             Lib_1.Library.addLivro(book);
             return book;
         });
     }
-    static getBook(id) {
+    static updateBook(book) {
         return __awaiter(this, void 0, void 0, function* () {
-            return Lib_1.Library.buscaLivroID(id);
+            let oldBook = yield bookModel.getBook(book.id);
+            oldBook = book;
+            return yield bookModel.getBook(book.id);
         });
     }
     static deleteBook(id) {

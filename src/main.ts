@@ -54,6 +54,3 @@ function init (): void {
 }
 
 init();
-
-
-

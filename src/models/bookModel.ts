@@ -7,13 +7,19 @@ export class bookModel {
         return Library.listaLivros();
     }
 
+    public static async getBook (id: number) {
+        return Library.buscaLivroID(id);
+    }
+
     public static async insertBook (book: Book) {
         Library.addLivro(book);
         return book;
     }
 
-    public static async getBook (id: number) {
-        return Library.buscaLivroID(id);
+    public static async updateBook (book: Book) {
+        let oldBook: Book | null = await bookModel.getBook(book.id);
+        oldBook = book;
+        return await bookModel.getBook(book.id);
     }
 
     public static async deleteBook (id: number) {
