@@ -9,7 +9,6 @@ export class bookController {
     public static async getAll (req: Request, res: Response) {
         const books: Array<Book> = await bookModel.getAll();
         try {
-
             return res.status(200).json(books);
         }
         catch (e) {
@@ -38,7 +37,7 @@ export class bookController {
         }
     }
 
-    public static insertBook (req: Request, res: Response) {
+    public static async insertBook (req: Request, res: Response) {
         let book = req.body;
 
         if (!book)
@@ -52,8 +51,18 @@ export class bookController {
 
         if (!book.genero)
             return badRequest(res, 'Informe o genero');
-
-        bookModel.insertBook(book as Book)
+        try {
+            const livro: Book | null = await bookModel.insertBook(book as Book)
+            if (!livro) {
+                return notFound(res);
+            }
+            return livro;
+        }
+        catch (e) {
+            if (e instanceof Error) {
+                return internalServerError(res, e);
+            }
+        }
         return res.status(200).json(book)
     }
 

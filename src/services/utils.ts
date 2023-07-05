@@ -16,5 +16,6 @@ export const internalServerError = (res: Response, err: Error) => {
     })
 }
 
+
 export const validateNumber = (num: any): boolean => { return parseFloat(num) > 0 }
 

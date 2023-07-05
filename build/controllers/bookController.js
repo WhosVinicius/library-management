@@ -47,17 +47,30 @@ class bookController {
         });
     }
     static insertBook(req, res) {
-        let book = req.body;
-        if (!book)
-            return (0, utils_1.badRequest)(res, "Produto inválido");
-        if (!book.titulo)
-            return (0, utils_1.badRequest)(res, 'Informe o nome do livro');
-        if (!book.autor)
-            return (0, utils_1.badRequest)(res, 'Informe o autor');
-        if (!book.genero)
-            return (0, utils_1.badRequest)(res, 'Informe o genero');
-        bookModel_1.bookModel.insertBook(book);
-        return res.status(200).json(book);
+        return __awaiter(this, void 0, void 0, function* () {
+            let book = req.body;
+            if (!book)
+                return (0, utils_1.badRequest)(res, "Produto inválido");
+            if (!book.titulo)
+                return (0, utils_1.badRequest)(res, 'Informe o nome do livro');
+            if (!book.autor)
+                return (0, utils_1.badRequest)(res, 'Informe o autor');
+            if (!book.genero)
+                return (0, utils_1.badRequest)(res, 'Informe o genero');
+            try {
+                const livro = yield bookModel_1.bookModel.insertBook(book);
+                if (!livro) {
+                    return (0, utils_1.notFound)(res);
+                }
+                return livro;
+            }
+            catch (e) {
+                if (e instanceof Error) {
+                    return (0, utils_1.internalServerError)(res, e);
+                }
+            }
+            return res.status(200).json(book);
+        });
     }
     static deleteBook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

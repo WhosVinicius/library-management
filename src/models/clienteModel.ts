@@ -10,9 +10,8 @@ export class clienteModel {
     public static async getAll () {
         return Library.listaClientes();
     }
-    
-    public static async insertClient (cliente: Cliente) {
 
+    public static async insertClient (cliente: Cliente) {
         Library.addCliente(cliente);
         return cliente;
     }
