@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { clienteModel } from "../models/clienteModel";
 import { Cliente } from '../classes/cliente/Cliente';
 import { badRequest, internalServerError, notFound, validateNumber } from '../services/utils';
-import internal from 'stream';
 
 export class clienteController {
 
@@ -11,9 +10,9 @@ export class clienteController {
         try {
             return res.status(200).json(books);
         }
-        catch (e) {
+        catch (e: unknown) {
             if (e instanceof Error) {
-                return internalServerError(res, e)
+                return internalServerError(res, e);
             }
         }
     }
@@ -21,10 +20,17 @@ export class clienteController {
     public static async getClient (req: Request, res: Response) {
         const cpf: string = req.params.id;
         if (!validateNumber(parseInt(cpf))) {
-            return badRequest(res, 'pedido invalido')
+            return badRequest(res, 'pedido invalido');
         }
-        const cliente = await clienteModel.getClient(cpf);
-        res.status(200).json(cliente);
+        try {
+            const cliente = await clienteModel.getClient(cpf);
+            res.status(200).json(cliente);
+        }
+        catch (e) {
+            if (e instanceof Error) {
+                return internalServerError(res, e);
+            }
+        }
     }
 
     public static async insertClient (req: Request, res: Response) {
@@ -71,12 +77,12 @@ export class clienteController {
             return badRequest(res, 'cliente nao cadastrado');
         }
         try {
-            const cl: Cliente | undefined = await clienteModel.deleteCient(cpf.toString().trim());
             res.status(200).json({
-                message: `${ cl?.cpf }:${ cl?.nome } removido com sucesso`
-            })
+                message: `cpf ${ cpf } deletado com sucesso`
+            });
+            return await clienteModel.deleteCient(cpf.toString().trim());
         }
-        catch (e) {
+        catch (e: unknown) {
             if (e instanceof Error) {
                 return internalServerError(res, e);
             }

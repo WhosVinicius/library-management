@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { bookModel } from '../models/bookModel';
 import { Book } from '../classes/Book';
 import { badRequest, internalServerError, notFound, validateNumber } from '../services/utils';
-import { Library } from '../Lib';
 
 export class bookController {
 
@@ -11,15 +10,15 @@ export class bookController {
         try {
             return res.status(200).json(books);
         }
-        catch (e) {
+        catch (e: unknown) {
             if (e instanceof Error) {
-                return internalServerError(res, e)
+                return internalServerError(res, e);
             }
         }
     }
 
     public static async getBook (req: Request, res: Response) {
-        const id = parseInt(req.params.id);
+        const id: number = parseInt(req.params.id);
         if (!id || validateNumber(id)) {
             return badRequest(res, "id invalido")
         }
@@ -28,6 +27,7 @@ export class bookController {
             if (!book) {
                 return notFound(res);
             }
+            res.status(200).json(book);
             return book;
         }
         catch (e) {
@@ -63,7 +63,7 @@ export class bookController {
                 return internalServerError(res, e);
             }
         }
-        res.status(200).json(book)
+        res.status(200).json(book);
     }
 
     public static updateBook (req: Request, res: Response) {
@@ -73,8 +73,21 @@ export class bookController {
     public static async deleteBook (req: Request, res: Response) {
         const id: number = parseInt(req.params.id);
         if (!validateNumber(id)) {
-            return badRequest(res, 'id invalido')
+            return badRequest(res, 'id invalido');
         }
-        return res.status(200).json({ message: { id } + 'deletado com sucesso' });
+        if (await bookModel.getBook(id) == null) {
+            return badRequest(res, 'cliente nao cadastrado');
+        }
+        try {
+            res.status(200).json({
+                message: `livro ${ id } deletado com sucesso`
+            })
+            return await bookModel.deleteBook(id);
+        }
+        catch (e: unknown) {
+            if (e instanceof Error) {
+                return internalServerError(res, e);
+            }
+        }
     }
 }
