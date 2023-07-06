@@ -75,18 +75,23 @@ class clienteController {
     static deleteClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cpf = req.query.id;
-            console.log(cpf, typeof (cpf));
             if (!cpf || !(0, utils_1.validateNumber)(cpf)) {
                 return (0, utils_1.badRequest)(res, 'pedido invalido');
             }
             else if ((yield clienteModel_1.clienteModel.getClient(cpf.toString().trim())) == null) {
                 return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
             }
-            const cl = yield clienteModel_1.clienteModel.deleteCient(cpf.toString().trim());
-            console.log(cl);
-            res.status(200).json({
-                message: `${cl === null || cl === void 0 ? void 0 : cl.cpf}:${cl === null || cl === void 0 ? void 0 : cl.nome} removido com sucesso`
-            });
+            try {
+                const cl = yield clienteModel_1.clienteModel.deleteCient(cpf.toString().trim());
+                res.status(200).json({
+                    message: `${cl === null || cl === void 0 ? void 0 : cl.cpf}:${cl === null || cl === void 0 ? void 0 : cl.nome} removido com sucesso`
+                });
+            }
+            catch (e) {
+                if (e instanceof Error) {
+                    return (0, utils_1.internalServerError)(res, e);
+                }
+            }
         });
     }
 }
