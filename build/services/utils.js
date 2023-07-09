@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.utils = exports.validateNumber = exports.internalServerError = exports.ok = exports.notFound = exports.badRequest = void 0;
+exports.utils = exports.checkAdress = exports.validateNumber = exports.internalServerError = exports.ok = exports.notFound = exports.badRequest = void 0;
 const badRequest = (res, err) => {
     res.status(400).json({
         err
@@ -19,6 +19,19 @@ const internalServerError = (res, err) => {
 exports.internalServerError = internalServerError;
 const validateNumber = (num) => { return parseFloat(num) > 0; };
 exports.validateNumber = validateNumber;
+function checkAdress(end) {
+    if (end.bairro == '') {
+        return false;
+    }
+    else if (!end.numero || end.numero == 0) {
+        return false;
+    }
+    if (end.rua == '') {
+        return false;
+    }
+    return true;
+}
+exports.checkAdress = checkAdress;
 class utils {
     constructor() {
         this.badRequest = (res, err) => {

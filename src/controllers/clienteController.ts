@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { clienteModel } from "../models/clienteModel";
 import { Cliente } from '../classes/cliente/Cliente';
-import { badRequest, internalServerError, notFound, validateNumber } from '../services/utils';
-
+import { checkAdress, badRequest, internalServerError, notFound, validateNumber } from '../services/utils';
 export class clienteController {
 
     public static async getAll (req: Request, res: Response) {
-        const books: Cliente[] = await clienteModel.getAll();
+        const clientes: Cliente[] = await clienteModel.getAll();
         try {
-            return res.status(200).json(books);
+            console.log(JSON.stringify(clientes))
+            return res.status(200).json(clientes);
         }
         catch (e: unknown) {
             if (e instanceof Error) {
@@ -18,15 +18,19 @@ export class clienteController {
     }
 
     public static async getClient (req: Request, res: Response) {
-        const cpf: string = req.params.id;
-        if (!validateNumber(parseInt(cpf))) {
+        const cpf = req.params.id;
+        if (!cpf || !validateNumber(cpf)) {
             return badRequest(res, 'pedido invalido');
         }
-        try {
-            const cliente = await clienteModel.getClient(cpf);
-            res.status(200).json(cliente);
+        const cl = await clienteModel.getClient(cpf.toString().trim().toLowerCase());
+        if (cl == null) {
+            return badRequest(res, 'cliente nao cadastrado');
         }
-        catch (e) {
+        try {
+            res.status(200).json(cl);
+            return await clienteModel.deleteCient(cl);
+        }
+        catch (e: unknown) {
             if (e instanceof Error) {
                 return internalServerError(res, e);
             }
@@ -47,7 +51,7 @@ export class clienteController {
         if (!cliente.cpf) {
             return badRequest(res, 'informe o cpf');
         }
-        if (!cliente.endereco) {
+        if (!cliente.endereco || checkAdress(cliente.endereco) == false) {
             return badRequest(res, "informe o endereço");
         }
         if (!cliente.data) {
@@ -105,11 +109,11 @@ export class clienteController {
 
     public static async deleteClient (req: Request, res: Response) {
         const cpf = req.params.id;
-        const cl = await clienteModel.getClient(cpf.toString().trim().toLowerCase());
         if (!cpf || !validateNumber(cpf)) {
             return badRequest(res, 'pedido invalido');
         }
-        else if (cl == null) {
+        const cl = await clienteModel.getClient(cpf.toString().trim().toLowerCase());
+        if (cl == null) {
             return badRequest(res, 'cliente nao cadastrado');
         }
         try {

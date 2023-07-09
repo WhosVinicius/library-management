@@ -19,6 +19,18 @@ export const internalServerError = (res: Response, err: Error) => {
 
 export const validateNumber = (num: any): boolean => { return parseFloat(num) > 0 }
 
+export function checkAdress (end: Endereco): boolean {
+    if (end.bairro == '') {
+        return false;
+    }
+    else if (!end.numero || end.numero == 0) {
+        return false;
+    }
+    if (end.rua == '') {
+        return false;
+    }
+    return true;
+}
 
 export class utils {
 

@@ -15,9 +15,10 @@ const utils_1 = require("../services/utils");
 class clienteController {
     static getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const books = yield clienteModel_1.clienteModel.getAll();
+            const clientes = yield clienteModel_1.clienteModel.getAll();
             try {
-                return res.status(200).json(books);
+                console.log(JSON.stringify(clientes));
+                return res.status(200).json(clientes);
             }
             catch (e) {
                 if (e instanceof Error) {
@@ -29,12 +30,16 @@ class clienteController {
     static getClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cpf = req.params.id;
-            if (!(0, utils_1.validateNumber)(parseInt(cpf))) {
+            if (!cpf || !(0, utils_1.validateNumber)(cpf)) {
                 return (0, utils_1.badRequest)(res, 'pedido invalido');
             }
+            const cl = yield clienteModel_1.clienteModel.getClient(cpf.toString().trim().toLowerCase());
+            if (cl == null) {
+                return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
+            }
             try {
-                const cliente = yield clienteModel_1.clienteModel.getClient(cpf);
-                res.status(200).json(cliente);
+                res.status(200).json(cl);
+                return yield clienteModel_1.clienteModel.deleteCient(cl);
             }
             catch (e) {
                 if (e instanceof Error) {
@@ -58,7 +63,7 @@ class clienteController {
             if (!cliente.cpf) {
                 return (0, utils_1.badRequest)(res, 'informe o cpf');
             }
-            if (!cliente.endereco) {
+            if (!cliente.endereco || (0, utils_1.checkAdress)(cliente.endereco) == false) {
                 return (0, utils_1.badRequest)(res, "informe o endereço");
             }
             if (!cliente.data) {
@@ -118,11 +123,11 @@ class clienteController {
     static deleteClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cpf = req.params.id;
-            const cl = yield clienteModel_1.clienteModel.getClient(cpf.toString().trim().toLowerCase());
             if (!cpf || !(0, utils_1.validateNumber)(cpf)) {
                 return (0, utils_1.badRequest)(res, 'pedido invalido');
             }
-            else if (cl == null) {
+            const cl = yield clienteModel_1.clienteModel.getClient(cpf.toString().trim().toLowerCase());
+            if (cl == null) {
                 return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
             }
             try {
