@@ -22,7 +22,7 @@ class clienteController {
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
         });
@@ -30,12 +30,12 @@ class clienteController {
     static getClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cpf = req.params.id;
-            if (!cpf || !(0, utils_1.validateNumber)(cpf)) {
-                return (0, utils_1.badRequest)(res, 'pedido invalido');
+            if (!cpf || !utils_1.utils.validateNumber(cpf)) {
+                return utils_1.utils.badRequest(res, 'pedido invalido');
             }
             const cl = yield clienteModel_1.clienteModel.getClient(cpf.toString().trim().toLowerCase());
             if (cl == null) {
-                return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
+                return utils_1.utils.badRequest(res, 'cliente nao cadastrado');
             }
             try {
                 res.status(200).json(cl);
@@ -43,7 +43,7 @@ class clienteController {
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
         });
@@ -52,34 +52,34 @@ class clienteController {
         return __awaiter(this, void 0, void 0, function* () {
             const cliente = req.body;
             if ((yield clienteModel_1.clienteModel.getClient(cliente.cpf)) != null) {
-                return (0, utils_1.badRequest)(res, "cliente ja esta cadastrado");
+                return utils_1.utils.badRequest(res, "cliente ja esta cadastrado");
             }
             if (!cliente) {
-                return (0, utils_1.badRequest)(res, 'cliente invalido');
+                return utils_1.utils.badRequest(res, 'cliente invalido');
             }
             if (!cliente.nome) {
-                return (0, utils_1.badRequest)(res, 'informe o nome');
+                return utils_1.utils.badRequest(res, 'informe o nome');
             }
             if (!cliente.cpf) {
-                return (0, utils_1.badRequest)(res, 'informe o cpf');
+                return utils_1.utils.badRequest(res, 'informe o cpf');
             }
-            if (!cliente.endereco || (0, utils_1.checkAdress)(cliente.endereco) == false) {
-                return (0, utils_1.badRequest)(res, "informe o endereço");
+            if (!cliente.endereco || utils_1.utils.checkAdress(cliente.endereco) == false) {
+                return utils_1.utils.badRequest(res, "informe o endereço");
             }
             if (!cliente.data) {
-                return (0, utils_1.badRequest)(res, "informe a data de nascimento");
+                return utils_1.utils.badRequest(res, "informe a data de nascimento");
             }
             try {
                 const cl = yield clienteModel_1.clienteModel.insertClient(cliente);
                 if (!cl) {
-                    return (0, utils_1.notFound)(res);
+                    return utils_1.utils.notFound(res);
                 }
                 res.status(200).json(cliente);
                 return cl;
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
         });
@@ -88,25 +88,25 @@ class clienteController {
         return __awaiter(this, void 0, void 0, function* () {
             const cliente = req.body;
             if (cliente.cpf == null) {
-                return (0, utils_1.badRequest)(res, 'pedido invalido NO-CPF');
+                return utils_1.utils.badRequest(res, 'pedido invalido NO-CPF');
             }
             if ((yield clienteModel_1.clienteModel.getClient(cliente.cpf)) == null) {
-                return (0, utils_1.badRequest)(res, "cliente nao esta cadastrado");
+                return utils_1.utils.badRequest(res, "cliente nao esta cadastrado");
             }
             if (!cliente) {
-                return (0, utils_1.badRequest)(res, 'pedido invalido');
+                return utils_1.utils.badRequest(res, 'pedido invalido');
             }
             if (!cliente.nome) {
-                return (0, utils_1.badRequest)(res, 'informe o nome');
+                return utils_1.utils.badRequest(res, 'informe o nome');
             }
             if (!cliente.cpf) {
-                return (0, utils_1.badRequest)(res, 'informe o cpf');
+                return utils_1.utils.badRequest(res, 'informe o cpf');
             }
             if (!cliente.endereco) {
-                return (0, utils_1.badRequest)(res, "informe o endereço");
+                return utils_1.utils.badRequest(res, "informe o endereço");
             }
             if (!cliente.data) {
-                return (0, utils_1.badRequest)(res, "informe a data de nascimento");
+                return utils_1.utils.badRequest(res, "informe a data de nascimento");
             }
             try {
                 const cl = yield clienteModel_1.clienteModel.updateCliente(cliente);
@@ -115,7 +115,7 @@ class clienteController {
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
         });
@@ -123,12 +123,12 @@ class clienteController {
     static deleteClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cpf = req.params.id;
-            if (!cpf || !(0, utils_1.validateNumber)(cpf)) {
-                return (0, utils_1.badRequest)(res, 'pedido invalido');
+            if (!cpf || !utils_1.utils.validateNumber(cpf)) {
+                return utils_1.utils.badRequest(res, 'pedido invalido');
             }
             const cl = yield clienteModel_1.clienteModel.getClient(cpf.toString().trim().toLowerCase());
             if (cl == null) {
-                return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
+                return utils_1.utils.badRequest(res, 'cliente nao cadastrado');
             }
             try {
                 res.status(200).json({
@@ -138,7 +138,7 @@ class clienteController {
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
         });

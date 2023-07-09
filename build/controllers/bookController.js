@@ -21,7 +21,7 @@ class bookController {
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
         });
@@ -29,20 +29,20 @@ class bookController {
     static getBook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = parseInt(req.params.id);
-            if (!id || (0, utils_1.validateNumber)(id)) {
-                return (0, utils_1.badRequest)(res, "id invalido");
+            if (!id || utils_1.utils.validateNumber(id)) {
+                return utils_1.utils.badRequest(res, "id invalido");
             }
             try {
                 const book = yield bookModel_1.bookModel.getBook(id);
                 if (!book) {
-                    return (0, utils_1.notFound)(res);
+                    return utils_1.utils.notFound(res);
                 }
                 res.status(200).json(book);
                 return book;
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
         });
@@ -51,23 +51,23 @@ class bookController {
         return __awaiter(this, void 0, void 0, function* () {
             let book = req.body;
             if (!book)
-                return (0, utils_1.badRequest)(res, "Produto inválido");
+                return utils_1.utils.badRequest(res, "Produto inválido");
             if (!book.titulo)
-                return (0, utils_1.badRequest)(res, 'Informe o nome do livro');
+                return utils_1.utils.badRequest(res, 'Informe o nome do livro');
             if (!book.autor)
-                return (0, utils_1.badRequest)(res, 'Informe o autor');
+                return utils_1.utils.badRequest(res, 'Informe o autor');
             if (!book.genero)
-                return (0, utils_1.badRequest)(res, 'Informe o genero');
+                return utils_1.utils.badRequest(res, 'Informe o genero');
             try {
                 const livro = yield bookModel_1.bookModel.insertBook(book);
                 if (!livro) {
-                    return (0, utils_1.notFound)(res);
+                    return utils_1.utils.notFound(res);
                 }
                 return livro;
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
             res.status(200).json(book);
@@ -77,25 +77,25 @@ class bookController {
         return __awaiter(this, void 0, void 0, function* () {
             const book = req.body;
             if (book.id == null) {
-                return (0, utils_1.badRequest)(res, 'pedido invalido NO-ID');
+                return utils_1.utils.badRequest(res, 'pedido invalido NO-ID');
             }
             if ((yield bookModel_1.bookModel.getBook(book.id)) == null) {
-                return (0, utils_1.badRequest)(res, "livro nao esta cadastrado");
+                return utils_1.utils.badRequest(res, "livro nao esta cadastrado");
             }
             if (!book) {
-                return (0, utils_1.badRequest)(res, 'pedido invalido');
+                return utils_1.utils.badRequest(res, 'pedido invalido');
             }
             if (!book.titulo) {
-                return (0, utils_1.badRequest)(res, 'informe o nome');
+                return utils_1.utils.badRequest(res, 'informe o nome');
             }
             if (!book.id) {
-                return (0, utils_1.badRequest)(res, 'informe o cpf');
+                return utils_1.utils.badRequest(res, 'informe o cpf');
             }
             if (!book.genero) {
-                return (0, utils_1.badRequest)(res, "informe o endereço");
+                return utils_1.utils.badRequest(res, "informe o endereço");
             }
             if (!book.autor) {
-                return (0, utils_1.badRequest)(res, "informe a data de nascimento");
+                return utils_1.utils.badRequest(res, "informe a data de nascimento");
             }
             try {
                 const bk = yield bookModel_1.bookModel.updateBook(book);
@@ -104,7 +104,7 @@ class bookController {
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
         });
@@ -112,11 +112,11 @@ class bookController {
     static deleteBook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = parseInt(req.params.id);
-            if (!(0, utils_1.validateNumber)(id)) {
-                return (0, utils_1.badRequest)(res, 'id invalido');
+            if (!utils_1.utils.validateNumber(id)) {
+                return utils_1.utils.badRequest(res, 'id invalido');
             }
             if ((yield bookModel_1.bookModel.getBook(id)) == null) {
-                return (0, utils_1.badRequest)(res, 'book nao cadastrado');
+                return utils_1.utils.badRequest(res, 'book nao cadastrado');
             }
             try {
                 res.status(200).json({
@@ -126,7 +126,7 @@ class bookController {
             }
             catch (e) {
                 if (e instanceof Error) {
-                    return (0, utils_1.internalServerError)(res, e);
+                    return utils_1.utils.internalServerError(res, e);
                 }
             }
         });
