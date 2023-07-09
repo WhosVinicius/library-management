@@ -104,7 +104,8 @@ export class clienteController {
     }
 
     public static async deleteClient (req: Request, res: Response) {
-        const cpf = req.query.id;
+        const cpf = req.params.id;
+        console.log(cpf);
         if (!cpf || !validateNumber(cpf)) {
             return badRequest(res, 'pedido invalido');
         }

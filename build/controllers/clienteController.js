@@ -117,7 +117,8 @@ class clienteController {
     }
     static deleteClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const cpf = req.query.id;
+            const cpf = req.params.id;
+            console.log(cpf);
             if (!cpf || !(0, utils_1.validateNumber)(cpf)) {
                 return (0, utils_1.badRequest)(res, 'pedido invalido');
             }

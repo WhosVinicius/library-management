@@ -11,4 +11,4 @@ exports.clientRoutes = clientRoutes;
 clientRoutes.get('/clientes', clienteController_1.clienteController.getAll);
 clientRoutes.post('/clientes', clienteController_1.clienteController.insertClient);
 clientRoutes.put('/clientes', clienteController_1.clienteController.updateClient);
-clientRoutes.delete('/clientes', clienteController_1.clienteController.deleteClient);
+clientRoutes.delete('/clientes/:id', clienteController_1.clienteController.deleteClient);

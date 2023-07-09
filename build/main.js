@@ -1,40 +1,4 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const body_parser_1 = __importDefault(require("body-parser"));
-const clienteController_1 = require("./controllers/clienteController");
-const bookController_1 = require("./controllers/bookController");
-const clientes_1 = require("./routes/clientes");
-class Server {
-    constructor(portNumber) {
-        this.port = portNumber;
-        this.app = (0, express_1.default)();
-    }
-    init() {
-        this.app.listen(this.port, () => {
-            console.log("server running on port:", this.port);
-            app.use(body_parser_1.default.json());
-        });
-    }
-}
-const app = (0, express_1.default)();
-app.use(body_parser_1.default.json());
-app.use(clientes_1.clientRoutes);
-app.delete('clientes/id:', (req, res) => {
-    clienteController_1.clienteController.deleteClient(req, res);
-});
-app.get('/books', (req, res) => {
-    bookController_1.bookController.getAll(req, res);
-});
-app.post('/books', (req, res) => {
-    bookController_1.bookController.insertBook(req, res);
-});
-function init() {
-    app.listen(3000, () => {
-        console.log('server rodando na porta 3000');
-    });
-}
-init();
+const server_1 = require("./services/server");
+const app = new server_1.ExpServer(3000);
