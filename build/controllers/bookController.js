@@ -74,6 +74,40 @@ class bookController {
         });
     }
     static updateBook(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const book = req.body;
+            if (book.id == null) {
+                return (0, utils_1.badRequest)(res, 'pedido invalido NO-ID');
+            }
+            if ((yield bookModel_1.bookModel.getBook(book.id)) == null) {
+                return (0, utils_1.badRequest)(res, "livro nao esta cadastrado");
+            }
+            if (!book) {
+                return (0, utils_1.badRequest)(res, 'pedido invalido');
+            }
+            if (!book.titulo) {
+                return (0, utils_1.badRequest)(res, 'informe o nome');
+            }
+            if (!book.id) {
+                return (0, utils_1.badRequest)(res, 'informe o cpf');
+            }
+            if (!book.genero) {
+                return (0, utils_1.badRequest)(res, "informe o endereço");
+            }
+            if (!book.autor) {
+                return (0, utils_1.badRequest)(res, "informe a data de nascimento");
+            }
+            try {
+                const bk = yield bookModel_1.bookModel.updateBook(book);
+                res.status(200).json(book);
+                return bk;
+            }
+            catch (e) {
+                if (e instanceof Error) {
+                    return (0, utils_1.internalServerError)(res, e);
+                }
+            }
+        });
     }
     static deleteBook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -82,7 +116,7 @@ class bookController {
                 return (0, utils_1.badRequest)(res, 'id invalido');
             }
             if ((yield bookModel_1.bookModel.getBook(id)) == null) {
-                return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
+                return (0, utils_1.badRequest)(res, 'book nao cadastrado');
             }
             try {
                 res.status(200).json({

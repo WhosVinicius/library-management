@@ -105,18 +105,18 @@ export class clienteController {
 
     public static async deleteClient (req: Request, res: Response) {
         const cpf = req.params.id;
-        console.log(cpf);
+        const cl = await clienteModel.getClient(cpf.toString().trim().toLowerCase());
         if (!cpf || !validateNumber(cpf)) {
             return badRequest(res, 'pedido invalido');
         }
-        else if (await clienteModel.getClient(cpf.toString().trim()) == null) {
+        else if (cl == null) {
             return badRequest(res, 'cliente nao cadastrado');
         }
         try {
             res.status(200).json({
                 message: `cpf ${ cpf } deletado com sucesso`
             });
-            return await clienteModel.deleteCient(cpf.toString().trim());
+            return await clienteModel.deleteCient(cl);
         }
         catch (e: unknown) {
             if (e instanceof Error) {

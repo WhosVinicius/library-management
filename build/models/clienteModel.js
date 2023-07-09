@@ -30,18 +30,12 @@ class clienteModel {
     }
     static updateCliente(cliente) {
         return __awaiter(this, void 0, void 0, function* () {
-            let oldClient = yield clienteModel.getClient(cliente.cpf);
-            oldClient = cliente;
-            return yield clienteModel.getClient(cliente.cpf);
+            return Lib_1.Library.updateCliente(cliente);
         });
     }
-    static deleteCient(cpf) {
+    static deleteCient(cliente) {
         return __awaiter(this, void 0, void 0, function* () {
-            const cliente = yield clienteModel.getClient(cpf);
-            if (cliente != null) {
-                Lib_1.Library.removeCliente(cliente);
-                return cliente;
-            }
+            return Lib_1.Library.removeCliente(cliente);
         });
     }
 }

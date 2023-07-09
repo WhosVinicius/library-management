@@ -118,18 +118,18 @@ class clienteController {
     static deleteClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cpf = req.params.id;
-            console.log(cpf);
+            const cl = yield clienteModel_1.clienteModel.getClient(cpf.toString().trim().toLowerCase());
             if (!cpf || !(0, utils_1.validateNumber)(cpf)) {
                 return (0, utils_1.badRequest)(res, 'pedido invalido');
             }
-            else if ((yield clienteModel_1.clienteModel.getClient(cpf.toString().trim())) == null) {
+            else if (cl == null) {
                 return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
             }
             try {
                 res.status(200).json({
                     message: `cpf ${cpf} deletado com sucesso`
                 });
-                return yield clienteModel_1.clienteModel.deleteCient(cpf.toString().trim());
+                return yield clienteModel_1.clienteModel.deleteCient(cl);
             }
             catch (e) {
                 if (e instanceof Error) {

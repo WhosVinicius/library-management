@@ -88,6 +88,12 @@ export class Library {
         return clientes_encontrados;
     }
 
+    static updateCliente (cliente: Cliente) {
+        const updObj = Library.clientes.findIndex((e => e.cpf == cliente.cpf))
+        Library.clientes[updObj] = cliente;
+        return Library.clientes[updObj];
+    }
+
     static removeCliente (cliente: Cliente): void {
         if (Library.clientes.includes(cliente)) {
             const index: number = Library.clientes.indexOf(cliente);
@@ -96,9 +102,6 @@ export class Library {
     }
 
     static listaClientes (): Cliente[] {
-        // Library.clientes.forEach(element => {
-        //     console.log(element.nome + " ", element.cpf + "\n")
-        // });
         return Library.clientes;
     }
 
@@ -108,9 +111,6 @@ export class Library {
     }
 
     static Log (): Registro[] {
-        Library.registro.forEach(reg => {
-            console.log(reg);
-        })
         return Library.registro;
     }
 

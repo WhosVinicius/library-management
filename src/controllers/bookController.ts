@@ -66,7 +66,39 @@ export class bookController {
         res.status(200).json(book);
     }
 
-    public static updateBook (req: Request, res: Response) {
+    public static async updateBook (req: Request, res: Response) {
+        const book = req.body;
+        if (book.id == null) {
+            return badRequest(res, 'pedido invalido NO-ID')
+        }
+        if (await bookModel.getBook(book.id) == null) {
+            return badRequest(res, "livro nao esta cadastrado");
+        }
+        if (!book) {
+            return badRequest(res, 'pedido invalido');
+        }
+        if (!book.titulo) {
+            return badRequest(res, 'informe o nome');
+        }
+        if (!book.id) {
+            return badRequest(res, 'informe o cpf');
+        }
+        if (!book.genero) {
+            return badRequest(res, "informe o endereço");
+        }
+        if (!book.autor) {
+            return badRequest(res, "informe a data de nascimento");
+        }
+        try {
+            const bk: Book | null = await bookModel.updateBook(book as Book)
+            res.status(200).json(book);
+            return bk;
+        }
+        catch (e) {
+            if (e instanceof Error) {
+                return internalServerError(res, e);
+            }
+        }
 
     }
 
@@ -76,7 +108,7 @@ export class bookController {
             return badRequest(res, 'id invalido');
         }
         if (await bookModel.getBook(id) == null) {
-            return badRequest(res, 'cliente nao cadastrado');
+            return badRequest(res, 'book nao cadastrado');
         }
         try {
             res.status(200).json({

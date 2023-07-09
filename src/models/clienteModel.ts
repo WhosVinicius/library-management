@@ -17,17 +17,10 @@ export class clienteModel {
     }
 
     public static async updateCliente (cliente: Cliente) {
-        let oldClient: Cliente | null = await clienteModel.getClient(cliente.cpf);
-        oldClient = cliente;
-        return await clienteModel.getClient(cliente.cpf);
+        return Library.updateCliente(cliente);
     }
 
-    public static async deleteCient (cpf: string) {
-        const cliente = await clienteModel.getClient(cpf);
-        if (cliente != null) {
-            Library.removeCliente(cliente);
-            return cliente;
-        }
+    public static async deleteCient (cliente: Cliente) {
+        return Library.removeCliente(cliente);
     }
-
 }

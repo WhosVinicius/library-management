@@ -73,6 +73,11 @@ class Library {
         });
         return clientes_encontrados;
     }
+    static updateCliente(cliente) {
+        const updObj = Library.clientes.findIndex((e => e.cpf == cliente.cpf));
+        Library.clientes[updObj] = cliente;
+        return Library.clientes[updObj];
+    }
     static removeCliente(cliente) {
         if (Library.clientes.includes(cliente)) {
             const index = Library.clientes.indexOf(cliente);
@@ -80,9 +85,6 @@ class Library {
         }
     }
     static listaClientes() {
-        // Library.clientes.forEach(element => {
-        //     console.log(element.nome + " ", element.cpf + "\n")
-        // });
         return Library.clientes;
     }
     static addLog(reg) {
@@ -90,9 +92,6 @@ class Library {
         return;
     }
     static Log() {
-        Library.registro.forEach(reg => {
-            console.log(reg);
-        });
         return Library.registro;
     }
 }
