@@ -34,7 +34,7 @@ export class clienteController {
     }
 
     public static async insertClient (req: Request, res: Response) {
-        let cliente = req.body;
+        const cliente = req.body;
         if (await clienteModel.getClient(cliente.cpf) != null) {
             return badRequest(res, "cliente ja esta cadastrado");
         }
@@ -58,6 +58,41 @@ export class clienteController {
             if (!cl) {
                 return notFound(res);
             }
+            res.status(200).json(cliente);
+            return cl;
+        }
+        catch (e) {
+            if (e instanceof Error) {
+                return internalServerError(res, e);
+            }
+        }
+    }
+
+    public static async updateClient (req: Request, res: Response) {
+        const cliente = req.body;
+        if (cliente.cpf == null) {
+            return badRequest(res, 'pedido invalido NO-CPF')
+        }
+        if (await clienteModel.getClient(cliente.cpf) == null) {
+            return badRequest(res, "cliente nao esta cadastrado");
+        }
+        if (!cliente) {
+            return badRequest(res, 'pedido invalido');
+        }
+        if (!cliente.nome) {
+            return badRequest(res, 'informe o nome');
+        }
+        if (!cliente.cpf) {
+            return badRequest(res, 'informe o cpf');
+        }
+        if (!cliente.endereco) {
+            return badRequest(res, "informe o endereço");
+        }
+        if (!cliente.data) {
+            return badRequest(res, "informe a data de nascimento");
+        }
+        try {
+            const cl: Cliente | null = await clienteModel.updateCliente(cliente as Cliente)
             res.status(200).json(cliente);
             return cl;
         }

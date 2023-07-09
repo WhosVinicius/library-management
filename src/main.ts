@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import { clienteController } from './controllers/clienteController';
 import { bookController } from './controllers/bookController';
+import { clientRoutes } from './routes/clientes';
 
 class Server {
   private port: number;
@@ -22,21 +23,15 @@ class Server {
 }
 
 const app = express();
+
 app.use(bodyParser.json());
 
-app.get('/clientes', (req: Request, res: Response) => {
-  clienteController.getAll(req, res);
-})
+app.use(clientRoutes)
 
-app.post('/clientes', (req: Request, res: Response) => {
-  clienteController.insertClient(req, res);
-})
 
-app.delete('/clientes', (req: Request, res: Response) => {
+app.delete('clientes/id:', (req: Request, res: Response) => {
   clienteController.deleteClient(req, res);
 })
-
-app.delete('clientes/id:')
 
 app.get('/books', (req: Request, res: Response) => {
   bookController.getAll(req, res);

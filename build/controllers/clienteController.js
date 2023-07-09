@@ -32,13 +32,20 @@ class clienteController {
             if (!(0, utils_1.validateNumber)(parseInt(cpf))) {
                 return (0, utils_1.badRequest)(res, 'pedido invalido');
             }
-            const cliente = yield clienteModel_1.clienteModel.getClient(cpf);
-            res.status(200).json(cliente);
+            try {
+                const cliente = yield clienteModel_1.clienteModel.getClient(cpf);
+                res.status(200).json(cliente);
+            }
+            catch (e) {
+                if (e instanceof Error) {
+                    return (0, utils_1.internalServerError)(res, e);
+                }
+            }
         });
     }
     static insertClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let cliente = req.body;
+            const cliente = req.body;
             if ((yield clienteModel_1.clienteModel.getClient(cliente.cpf)) != null) {
                 return (0, utils_1.badRequest)(res, "cliente ja esta cadastrado");
             }
@@ -72,6 +79,42 @@ class clienteController {
             }
         });
     }
+    static updateClient(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cliente = req.body;
+            if (cliente.cpf == null) {
+                return (0, utils_1.badRequest)(res, 'pedido invalido NO-CPF');
+            }
+            if ((yield clienteModel_1.clienteModel.getClient(cliente.cpf)) == null) {
+                return (0, utils_1.badRequest)(res, "cliente nao esta cadastrado");
+            }
+            if (!cliente) {
+                return (0, utils_1.badRequest)(res, 'pedido invalido');
+            }
+            if (!cliente.nome) {
+                return (0, utils_1.badRequest)(res, 'informe o nome');
+            }
+            if (!cliente.cpf) {
+                return (0, utils_1.badRequest)(res, 'informe o cpf');
+            }
+            if (!cliente.endereco) {
+                return (0, utils_1.badRequest)(res, "informe o endereço");
+            }
+            if (!cliente.data) {
+                return (0, utils_1.badRequest)(res, "informe a data de nascimento");
+            }
+            try {
+                const cl = yield clienteModel_1.clienteModel.updateCliente(cliente);
+                res.status(200).json(cliente);
+                return cl;
+            }
+            catch (e) {
+                if (e instanceof Error) {
+                    return (0, utils_1.internalServerError)(res, e);
+                }
+            }
+        });
+    }
     static deleteClient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cpf = req.query.id;
@@ -82,10 +125,10 @@ class clienteController {
                 return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
             }
             try {
-                const cl = yield clienteModel_1.clienteModel.deleteCient(cpf.toString().trim());
                 res.status(200).json({
-                    message: `${cl === null || cl === void 0 ? void 0 : cl.cpf}:${cl === null || cl === void 0 ? void 0 : cl.nome} removido com sucesso`
+                    message: `cpf ${cpf} deletado com sucesso`
                 });
+                return yield clienteModel_1.clienteModel.deleteCient(cpf.toString().trim());
             }
             catch (e) {
                 if (e instanceof Error) {

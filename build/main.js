@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const clienteController_1 = require("./controllers/clienteController");
 const bookController_1 = require("./controllers/bookController");
+const clientes_1 = require("./routes/clientes");
 class Server {
     constructor(portNumber) {
         this.port = portNumber;
@@ -21,16 +22,10 @@ class Server {
 }
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
-app.get('/clientes', (req, res) => {
-    clienteController_1.clienteController.getAll(req, res);
-});
-app.post('/clientes', (req, res) => {
-    clienteController_1.clienteController.insertClient(req, res);
-});
-app.delete('/clientes', (req, res) => {
+app.use(clientes_1.clientRoutes);
+app.delete('clientes/id:', (req, res) => {
     clienteController_1.clienteController.deleteClient(req, res);
 });
-app.delete('clientes/id:');
 app.get('/books', (req, res) => {
     bookController_1.bookController.getAll(req, res);
 });

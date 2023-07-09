@@ -37,6 +37,7 @@ class bookController {
                 if (!book) {
                     return (0, utils_1.notFound)(res);
                 }
+                res.status(200).json(book);
                 return book;
             }
             catch (e) {
@@ -80,7 +81,20 @@ class bookController {
             if (!(0, utils_1.validateNumber)(id)) {
                 return (0, utils_1.badRequest)(res, 'id invalido');
             }
-            return res.status(200).json({ message: { id } + 'deletado com sucesso' });
+            if ((yield bookModel_1.bookModel.getBook(id)) == null) {
+                return (0, utils_1.badRequest)(res, 'cliente nao cadastrado');
+            }
+            try {
+                res.status(200).json({
+                    message: `livro ${id} deletado com sucesso`
+                });
+                return yield bookModel_1.bookModel.deleteBook(id);
+            }
+            catch (e) {
+                if (e instanceof Error) {
+                    return (0, utils_1.internalServerError)(res, e);
+                }
+            }
         });
     }
 }

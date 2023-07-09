@@ -5,9 +5,9 @@ export class Cliente {
     nascimento: String;
     endereço: Endereco;
     ficha: EmprestimoCliente[];
-    cpf: String;
+    cpf: string;
 
-    constructor (nome: String, data: String, endereco: Endereco, cpf: String) {
+    constructor (nome: String, data: string, endereco: Endereco, cpf: string) {
         this.ficha = [];
         this.nome = nome;
         this.nascimento = data;

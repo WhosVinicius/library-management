@@ -28,6 +28,13 @@ class clienteModel {
             return cliente;
         });
     }
+    static updateCliente(cliente) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let oldClient = yield clienteModel.getClient(cliente.cpf);
+            oldClient = cliente;
+            return yield clienteModel.getClient(cliente.cpf);
+        });
+    }
     static deleteCient(cpf) {
         return __awaiter(this, void 0, void 0, function* () {
             const cliente = yield clienteModel.getClient(cpf);
